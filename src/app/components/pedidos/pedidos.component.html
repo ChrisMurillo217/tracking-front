@@ -1,0 +1,52 @@
+<app-navbar></app-navbar>
+<div class="container"><br>
+  <br>
+  <h3 class="text-light">Pedido</h3><br>
+  <form>
+    <div class="form-group">
+      <label class="text-light" for="numPedido">Número de pedido</label><br>
+      <div class="form-group">
+        <p-autoComplete
+          [(ngModel)]="selectedPedido"
+          [ngModelOptions]="{standalone: true}"
+          [dropdown]="true"
+          [suggestions]="filteredPedidos"
+          [style]="{ width: '100%', height: '38px' }"
+          (completeMethod)="filterPedido($event)"
+          (onSelect)="onPedidoSelect($event)"
+          field="label"
+          placeholder="N° de pedido">
+        </p-autoComplete>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="text-light" for="nombreCliente">Cliente</label>
+      <input type="text" class="form-control" name="nombreCliente" [(ngModel)]="nombreCliente" placeholder="Cliente" readonly disabled>
+    </div>
+    <div class="form-group">
+      <label class="text-light" for="estadoPedido">Estado</label>
+      <input type="text" class="form-control" name="estadoPedido" [(ngModel)]="estadoPedido" placeholder="Estado" readonly disabled>
+    </div>
+    <div class="row">
+      <div class="col form-group">
+        <label class="text-light" for="item">Código Items</label>
+        <textarea class="form-control" rows="3" name="codigoItems" [(ngModel)]="codigoItems" placeholder="Código de Items" readonly disabled></textarea>
+      </div>
+      <div class="col form-group">
+        <label class="text-light" for="item">Items</label>
+        <textarea class="form-control" rows="3" name="items" [(ngModel)]="items" placeholder="Items" readonly disabled></textarea>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col form-group">
+        <label class="text-light" for="fechaIngreso">Fecha de Ingreso</label>
+        <input type="date" class="form-control" name="fechaIngreso" [(ngModel)]="fechaIngreso" readonly disabled>
+      </div>
+      <div class="col form-group">
+        <label class="text-light" for="fechaEntrega">Fecha de Entrega</label>
+        <input type="date" class="form-control" name="fechaEntrega" [(ngModel)]="fechaEntrega" required>
+      </div>
+    </div>
+    <button type="button" class="btn btn-primary" (click)="guardarPedido()">Guardar</button>
+  </form>
+</div>

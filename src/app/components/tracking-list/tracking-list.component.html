@@ -1,0 +1,35 @@
+<app-navbar></app-navbar><br>
+
+<div class="container">
+  <div class="row">
+    <br>
+    <a routerLink="/home" class="btn">
+      <i class="pi pi-arrow-circle-left" style="font-size: 2.5rem; color: #f8f9fa"></i>
+    </a>
+  </div>
+  <br>
+  <h3 class="text-light">Lista de Pedidos</h3><br>
+  <p-table class="table" [value]="pedidos.slice(first, first + 5)" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th scope="col">Fecha de Ingreso</th>
+        <th scope="col">Fecha de Entrega</th>
+        <th scope="col">Código de Item</th>
+        <th scope="col">Descripción</th>
+        <th scope="col">N° de Pedido</th>
+        <th scope="col"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-pedido>
+      <tr>
+        <td>{{ formatDate( pedido.fechaContabilizacion ) }}</td>
+        <td>{{ formatDate( pedido.fechaEntrega ) }}</td>
+        <td>{{ pedido.codigoItems }}</td>
+        <td>{{ pedido.items }}</td>
+        <td>{{ pedido.pedidoCliente }}</td>
+        <td><a routerLink="/tracking" class="btn btn-primary btn-sm">Tracking</a></td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <p-paginator [rows]="5" [totalRecords]="pedidos.length" [first]="first" (onPageChange)="onPageChange($event)"></p-paginator>
+</div>

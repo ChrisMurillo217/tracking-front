@@ -1,0 +1,26 @@
+<app-navbar></app-navbar>
+<br>
+<div class="container"><br>
+  <h3 class="text-light">Guía</h3><br>
+  <form>
+    <div class="row">
+      <div class="col form-group">
+        <label class="text-light" for="numPedido">Número de pedido</label>
+        <input type="text" class="form-control" name="numPedido" placeholder="N° de pedido">
+      </div>
+      <div class="col form-group">
+        <label class="text-light" for="numGuia">Número de guía</label>
+        <input type="text" class="form-control" name="numGuia" placeholder="N° de guía" readonly disabled>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="text-light" for="item">Items</label>
+      <textarea class="form-control" rows="3" readonly disabled></textarea>
+    </div>
+    <div class="form-group">
+      <label class="text-light" for="fechaEntrega">Fecha de Entrega</label>
+      <input type="date" class="form-control" name="fechaEntrega">
+    </div>
+    <button type="button" class="btn btn-primary">Guardar</button>
+  </form>
+</div>

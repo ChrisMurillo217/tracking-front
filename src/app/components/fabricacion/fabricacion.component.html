@@ -1,0 +1,52 @@
+<app-navbar></app-navbar>
+<br>
+<div class="container"><br>
+  <h3 class="text-light">Orden de fabricación</h3><br>
+  <form>
+    <div class="form-group">
+      <label class="text-light" for="numPedido">Número de pedido</label><br>
+      <div class="form-group">
+        <p-autoComplete
+          [(ngModel)]="selectedPedido"
+          name="selectedPedido"
+          [dropdown]="true"
+          [suggestions]="filteredPedidos"
+          [style]="{ width: '100%', height: '38px' }"
+          (completeMethod)="filterPedido($event)"
+          (onSelect)="onOFSelect($event)"
+          field="label"
+          placeholder="N° de pedido">
+        </p-autoComplete>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="text-light" for="ordenFabricacion">Orden de fabricación</label>
+      <div class="form-group">
+        <select class="form-control select-wrapper" [(ngModel)]="OF" name="OF" (onSelect)="onOFSelect($event)">
+          <option *ngFor="let of of OFs">{{ of.value.OF }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col form-group">
+        <label class="text-light" for="item">Código Items</label>
+        <input type="text" class="form-control" name="codigoItems" [(ngModel)]="codigoItem" placeholder="Código de item" readonly disabled>
+      </div>
+      <div class="col form-group">
+        <label class="text-light" for="item">Items</label>
+        <input type="text" class="form-control" name="items" [(ngModel)]="item" placeholder="Descripción" readonly disabled>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col form-group">
+        <label class="text-light" for="fechaIngreso">Fecha de Ingreso</label>
+        <input type="date" class="form-control" name="fechaIngreso" readonly disabled>
+      </div>
+      <div class="col form-group">
+        <label class="text-light" for="fechaEntrega">Fecha de Entrega</label>
+        <input type="date" class="form-control" name="fechaEntrega" required>
+      </div>
+    </div>
+    <button type="button" class="btn btn-primary">Guardar</button>
+  </form>
+</div>

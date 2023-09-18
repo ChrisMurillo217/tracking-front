@@ -1,0 +1,58 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+  <div class="row margin-top-icon">
+    <br>
+    <a routerLink="/trackingList" class="btn">
+      <i class="pi pi-arrow-circle-left" style="font-size: 2.5rem; color: #f8f9fa"></i>
+    </a>
+  </div>
+
+  <div class="row margin-top-icon">
+    <div class="col margin-1">
+      <i class="pi pi-file" style="font-size: 2.5rem; color: #f8f9fa"></i>
+    </div>
+    <div class="col margin-2">
+      <i class="pi pi-cog" style="font-size: 2.5rem; color: #f8f9fa"></i>
+    </div>
+    <div class="col margin-3">
+      <i class="pi pi-truck" style="font-size: 2.5rem; color: #f8f9fa"></i>
+    </div>
+    <div class="col margin-4">
+      <i class="pi pi-check-circle" style="font-size: 2.5rem; color: #f8f9fa"></i>
+    </div>
+  </div>
+
+  <div class="row margin-top-progress">
+    <br>
+    <div class="col-1"></div>
+    <div class="col-10">
+      <p-progressBar [value]="33" [style]="{ height: '16px' }"></p-progressBar>
+    </div>
+    <div class="col-1"></div>
+  </div>
+
+  <div class="row align-items-center justify-content-center text-light margin-top-info">
+    <div class="col-2"></div>
+    <div class="col-4">
+      <h4 class="text-inline">
+        <strong>
+          N° de pedido: <br>
+          Fecha de ingreso: <br>
+          Estado: <br>
+          Fecha de entrega: <br>
+          Tiempo estimado de entrega:
+        </strong>
+      </h4>
+    </div>
+    <div class="col-4">
+      <h4 class="text-inline">
+        123456 <br>
+        31/08/2023 <br>
+        Normal <br>
+        10/09/2023 <br>
+        10 días
+      </h4>
+    </div>
+  </div>
+</div>
