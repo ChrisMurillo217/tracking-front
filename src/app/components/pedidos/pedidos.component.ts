@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PedidoService } from 'src/app/services/pedido.service';
+import { ProgressService } from 'src/app/services/progress.service';
 import { Pedido } from '../../models/pedidoSap.model';
 
 @Component({
@@ -16,9 +17,10 @@ export class PedidosComponent implements OnInit {
   fechaEntrega:     Date | null = null;
   items:            string[] = [];
   codigoItems:      string[] = [];
+  combinedData:     any = {};
   selectedDocNum:   string = '';
 
-  constructor( private pedidoService: PedidoService ) { }
+  constructor( private pedidoService: PedidoService, private progressService: ProgressService ) { }
 
   ngOnInit() {
     this.pedidoService.getPedidos().subscribe( ( pedidos: Pedido[] ) => {
@@ -58,10 +60,6 @@ export class PedidosComponent implements OnInit {
       const formattedFechaIngreso = fechaIngreso.toISOString().split( 'T' )[ 0 ];
 
       this.fechaIngreso = formattedFechaIngreso;
-
-      this.codigoItems = this.filteredPedidos
-        .filter( p => p.DocNum === pedidoSeleccionado.DocNum )
-        .map( p => p.Dscription );
 
       this.selectedDocNum = pedidoSeleccionado.DocNum.toString();
 
@@ -107,9 +105,12 @@ export class PedidosComponent implements OnInit {
         Quantity: 1
       };
 
+      console.log(nuevoPedido);
+
       this.pedidoService.createPedido( nuevoPedido ).subscribe(
         ( response: any ) => {
           console.log( response.message );
+          this.progressService.updateProgress( 33 );
         },
         ( error: any ) => {
           console.error( 'Error al crear el pedido', error );

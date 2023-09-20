@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'fabricacion' , component: FabricacionComponent },
   { path: 'despachos' , component: DespachoComponent },
   { path: 'trackingList' , component: TrackingListComponent },
-  { path: 'tracking' , component: TrackingComponent },
+  { path: 'tracking/:pedidoCliente' , component: TrackingComponent },
 ];
 
 @NgModule({

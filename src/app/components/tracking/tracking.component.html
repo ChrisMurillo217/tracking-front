@@ -27,7 +27,7 @@
     <br>
     <div class="col-1"></div>
     <div class="col-10">
-      <p-progressBar [value]="33" [style]="{ height: '16px' }"></p-progressBar>
+      <p-progressBar [value]="progress" [style]="{ height: '16px' }"></p-progressBar>
     </div>
     <div class="col-1"></div>
   </div>
@@ -41,17 +41,17 @@
           Fecha de ingreso: <br>
           Estado: <br>
           Fecha de entrega: <br>
-          Tiempo estimado de entrega:
+          Tiempo de entrega:
         </strong>
       </h4>
     </div>
     <div class="col-4">
       <h4 class="text-inline">
-        123456 <br>
-        31/08/2023 <br>
-        Normal <br>
-        10/09/2023 <br>
-        10 días
+        {{ pedidoCliente }} <br>
+        {{ formatDate( pedido.DocDate ) }} <br>
+        {{ pedido.CANCELED }} <br>
+        {{ formatDate( pedido.DocDueDate ) }} <br>
+        {{ calcularTiempoEntrega( pedido.DocDate, pedido.DocDueDate ) }}
       </h4>
     </div>
   </div>

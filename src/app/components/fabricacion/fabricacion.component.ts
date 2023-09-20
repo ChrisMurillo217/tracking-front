@@ -11,11 +11,12 @@ import { Fabricacion } from '../../models/ofSap.model';
 export class FabricacionComponent implements OnInit {
   OF:               any;
   filteredPedidos:  any[] = [];
-  selectedOF:       any;
   OFs:              any[] = [];
   selectedPedido:   string = '';
   item:             any;
   codigoItem:       any;
+  fechaIngreso:     Date | string | null = null;
+  fechaEntrega:     Date | null = null;
 
   constructor( private ofService: OfService ) { }
 
@@ -48,11 +49,19 @@ export class FabricacionComponent implements OnInit {
     } );
   }
 
-  onOFSelect( event: any ) {
-    if ( event.value ) {
-      const ofSeleccionado = event.value.pedidoCliente;
+  filterOF( event: any ) {
+    const query = event.query.toLowerCase();
 
-      this.selectedPedido = ofSeleccionado;
+    this.OFs = this.OFs.filter( ( of: any ) => {
+      return of.label.toLowerCase().includes( query );
+    } );
+  }
+
+  onPedidoSelect( event: any ) {
+    if ( event.value ) {
+      const pedidoSeleccionado = event.value.pedidoCliente;
+
+      this.selectedPedido = pedidoSeleccionado;
 
       this.ofService.getOf( this.selectedPedido ).subscribe(
         ( ofs: Fabricacion[] ) => {
@@ -65,27 +74,45 @@ export class FabricacionComponent implements OnInit {
           console.error('Error al obtener las órdenes de fabricación', error);
         }
       );
+    }
+  }
 
-      this.ofService.getItemsByOF( this.OF ).subscribe(
+  onOFSelect( event: any ) {
+    if ( event.value ) {
+      const ofSeleccionado: Fabricacion = event.value;
+
+      this.codigoItem = ofSeleccionado.Item;
+      this.item = ofSeleccionado.Descripcion;
+
+      const fechaIngreso = new Date( ofSeleccionado.StartDate );
+      const formattedFechaIngreso = fechaIngreso.toISOString().split( 'T' )[ 0 ];
+
+      this.fechaIngreso = formattedFechaIngreso;
+    }
+  }
+
+  guardarOF() {
+    if ( this.fechaEntrega && this.fechaIngreso ) {
+      const nuevaOF: Fabricacion = {
+        Pedido: this.OF?.value.Pedido,
+        PostDate: new Date(),
+        DueDate: new Date( this.fechaEntrega ),
+        StartDate: new Date( this.fechaIngreso ),
+        OF: this.OF?.value.OF,
+        Item: this.codigoItem,
+        Descripcion: this.item
+      };
+
+      this.ofService.createOF( nuevaOF ).subscribe(
         ( response: any ) => {
-          console.log(this.OF);
-
-          this.codigoItem = response;
+          console.log( response.message );
         },
         ( error: any ) => {
-          console.error( 'Error al obtener los ItemCode', error );
+          console.error( 'Error al crear la orden de fabricación', error );
         }
-      )
-
-      this.ofService.getItemsByOF( this.OF ).subscribe(
-        ( response: any ) => {
-          this.item = response;
-        },
-        ( error: any ) => {
-          console.error( 'Error al obtener las descripciones', error );
-        }
-      )
-
+      );
+    } else {
+      console.error( 'Las fechas son nulas o no válidas' );
     }
   }
 }

@@ -8,7 +8,7 @@ import { PedidoList } from '../models/pedido.model';
   providedIn: 'root'
 })
 export class OfService {
-  urlAPI : string = 'http://localhost:3000/api';
+  urlAPI : string = 'http://192.168.20.14:8086/api';
 
   constructor( private __http: HttpClient ) { }
 
@@ -45,6 +45,15 @@ export class OfService {
       catchError( ( error ) => {
         return throwError( error );
       })
+    );
+  }
+
+  createOF( of: Fabricacion ): Observable<any> {
+    const url = `${ this.urlAPI }/fabricacion`;
+    return this.__http.post( url, of ).pipe(
+      catchError( ( error ) => {
+        return throwError( error );
+      } )
     );
   }
 }

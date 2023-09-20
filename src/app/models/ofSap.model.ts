@@ -4,6 +4,6 @@ export interface Fabricacion {
   PostDate: Date; // Creación de la orden de fabrición
   StartDate: Date; // Inicio de la orden de fabricación
   DueDate: Date; //Fin de la orden de fabricación
-  ItemCode: string[];
-  Dscription: string[];
+  Item: string[];
+  Descripcion: string[];
 }

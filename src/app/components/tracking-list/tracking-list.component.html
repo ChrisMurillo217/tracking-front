@@ -12,22 +12,32 @@
   <p-table class="table" [value]="pedidos.slice(first, first + 5)" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header">
       <tr>
-        <th scope="col">Fecha de Ingreso</th>
-        <th scope="col">Fecha de Entrega</th>
+        <th scope="col">N° de Pedido</th>
         <th scope="col">Código de Item</th>
         <th scope="col">Descripción</th>
-        <th scope="col">N° de Pedido</th>
+        <th scope="col">Fecha de Ingreso</th>
+        <th scope="col">Fecha de Entrega</th>
         <th scope="col"></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-pedido>
       <tr>
+        <td>{{ pedido.pedidoCliente }}</td>
+        <td>
+          <div [innerHTML]="pedido.codigoItems.join('<br>')"></div>
+        </td>
+        <td>
+          <div [innerHTML]="pedido.items.join('<br>')"></div>
+        </td>
         <td>{{ formatDate( pedido.fechaContabilizacion ) }}</td>
         <td>{{ formatDate( pedido.fechaEntrega ) }}</td>
-        <td>{{ pedido.codigoItems }}</td>
-        <td>{{ pedido.items }}</td>
-        <td>{{ pedido.pedidoCliente }}</td>
-        <td><a routerLink="/tracking" class="btn btn-primary btn-sm">Tracking</a></td>
+        <td>
+          <a
+            [routerLink]="['/tracking', pedido.pedidoCliente]"
+            class="btn btn-primary btn-sm">
+            Tracking
+          </a>
+        </td>
       </tr>
     </ng-template>
   </p-table>

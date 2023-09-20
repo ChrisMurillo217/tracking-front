@@ -13,7 +13,7 @@
           [suggestions]="filteredPedidos"
           [style]="{ width: '100%', height: '38px' }"
           (completeMethod)="filterPedido($event)"
-          (onSelect)="onOFSelect($event)"
+          (onSelect)="onPedidoSelect($event)"
           field="label"
           placeholder="N° de pedido">
         </p-autoComplete>
@@ -22,9 +22,17 @@
     <div class="form-group">
       <label class="text-light" for="ordenFabricacion">Orden de fabricación</label>
       <div class="form-group">
-        <select class="form-control select-wrapper" [(ngModel)]="OF" name="OF" (onSelect)="onOFSelect($event)">
-          <option *ngFor="let of of OFs">{{ of.value.OF }}</option>
-        </select>
+        <p-autoComplete
+          [(ngModel)]="OF"
+          name="OF"
+          [dropdown]="true"
+          [suggestions]="OFs"
+          [style]="{ width: '100%', height: '38px' }"
+          (completeMethod)="filterOF($event)"
+          (onSelect)="onOFSelect($event)"
+          field="label"
+          placeholder="Orden de fabricación">
+        </p-autoComplete>
       </div>
     </div>
     <div class="row">
@@ -40,13 +48,13 @@
     <div class="row">
       <div class="col form-group">
         <label class="text-light" for="fechaIngreso">Fecha de Ingreso</label>
-        <input type="date" class="form-control" name="fechaIngreso" readonly disabled>
+        <input type="date" class="form-control" name="fechaIngreso" [(ngModel)]="fechaIngreso" readonly disabled>
       </div>
       <div class="col form-group">
         <label class="text-light" for="fechaEntrega">Fecha de Entrega</label>
-        <input type="date" class="form-control" name="fechaEntrega" required>
+        <input type="date" class="form-control" name="fechaEntrega" [(ngModel)]="fechaEntrega" required>
       </div>
     </div>
-    <button type="button" class="btn btn-primary">Guardar</button>
+    <button type="button" class="btn btn-primary" (click)="guardarOF()">Guardar</button>
   </form>
 </div>
