@@ -49,7 +49,7 @@ export class PedidoService {
   }
 
   getPedidosList(): Observable<PedidoList[]> {
-    const url = `${ this.urlAPI }/trackinList`;
+    const url = `${ this.urlAPI }/trackingList`;
     return this.__http.get<PedidoList[]>( url ).pipe(
       map((data: any) => {
         return data.map((pedido: any) => ({
@@ -57,12 +57,13 @@ export class PedidoService {
           codigoItems: JSON.parse(pedido.codigoItems),
           items: JSON.parse(pedido.items)
         }));
-      }));
+      })
+    );
   }
 
-  getPedidoByDocNum( docNum: string ): Observable<Pedido> {
-    const url = `${ this.urlAPI }/pedidos/${ docNum }`;
-    return this.__http.get<Pedido>( url ).pipe(
+  getPedidoByDocNum( pedidoCliente: string ): Observable<PedidoList> {
+    const url = `${ this.urlAPI }/tracking/${ pedidoCliente }`;
+    return this.__http.get<PedidoList>( url ).pipe(
       catchError( ( error ) => {
         return throwError( error );
       } )

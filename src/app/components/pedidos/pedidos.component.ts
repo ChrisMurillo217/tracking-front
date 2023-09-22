@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { ProgressService } from 'src/app/services/progress.service';
 import { Pedido } from '../../models/pedidoSap.model';
+import { PedidoList } from 'src/app/models/pedido.model';
 
 @Component({
   selector: 'app-pedidos',
@@ -19,18 +20,33 @@ export class PedidosComponent implements OnInit {
   codigoItems:      string[] = [];
   combinedData:     any = {};
   selectedDocNum:   string = '';
+  pedidosGuardados: Pedido[] = [];
+  existingPedidos:  string[] = [];
+  TOTAL_PEDIDOS:    number = 0;
 
   constructor( private pedidoService: PedidoService, private progressService: ProgressService ) { }
 
   ngOnInit() {
+    this.pedidoService.getPedidosList().subscribe( ( existingPedidos: PedidoList[] ) => {
+      this.existingPedidos = existingPedidos.map( ( pedido ) => pedido.pedidoCliente.toString() );
+
+      const progresoExistente = ( this.existingPedidos.length / this.TOTAL_PEDIDOS ) * 100;
+
+      this.progressService.updateProgress( progresoExistente );
+
+      this.loadPedidosFromSap();
+    } );
+  }
+
+  loadPedidosFromSap() {
     this.pedidoService.getPedidos().subscribe( ( pedidos: Pedido[] ) => {
-      const uniquePedidos = new Set();
+      const uniquePedidos: Set<string> = new Set();
 
       pedidos.forEach( ( pedido: Pedido ) => {
         const pedidoLabel = pedido.DocNum.toString();
 
-        if ( !uniquePedidos.has( pedidoLabel ) ) {
-          uniquePedidos.add( pedidoLabel );
+        if ( !uniquePedidos.has(pedidoLabel) && !this.existingPedidos.some( ( existingPedidos ) => existingPedidos === pedidoLabel ) ) {
+          uniquePedidos.add(pedidoLabel);
 
           this.filteredPedidos.push( {
             label: pedidoLabel,
@@ -105,12 +121,16 @@ export class PedidosComponent implements OnInit {
         Quantity: 1
       };
 
-      console.log(nuevoPedido);
-
       this.pedidoService.createPedido( nuevoPedido ).subscribe(
         ( response: any ) => {
           console.log( response.message );
           this.progressService.updateProgress( 33 );
+
+
+          const index = this.filteredPedidos.findIndex( pedido => pedido.value.DocNum === nuevoPedido.DocNum);
+          if ( index !== -1 ) {
+            this.filteredPedidos.splice( index, 1 );
+          }
         },
         ( error: any ) => {
           console.error( 'Error al crear el pedido', error );

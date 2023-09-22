@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PedidoService } from '../../services/pedido.service';
 import { PedidoList } from '../../models/pedido.model';
+import { ProgressService } from '../../services/progress.service';
 
 @Component({
   selector: 'app-tracking-list',
@@ -8,10 +9,10 @@ import { PedidoList } from '../../models/pedido.model';
   styleUrls: ['./tracking-list.component.css']
 })
 export class TrackingListComponent implements OnInit {
-  pedidos: PedidoList[] = [];
-  first = 0;
+  pedidos:    PedidoList[] = [];
+  first       = 0;
 
-  constructor( private pedidoService: PedidoService ) {}
+  constructor( private pedidoService: PedidoService, private progressService: ProgressService ) {}
 
   ngOnInit(): void {
     this.pedidoService.getPedidosList().subscribe(
@@ -35,5 +36,9 @@ export class TrackingListComponent implements OnInit {
 
   onPageChange( event: any ) {
     this.first = event.first;
+  }
+
+  onTrackingClick( pedidoCliente: string ) {
+    this.progressService.updateProgress( 33 );
   }
 }

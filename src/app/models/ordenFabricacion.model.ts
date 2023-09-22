@@ -1,4 +1,4 @@
-export interface Fabricacion {
+export interface FabricacionList {
   idPedido: number;
   ordFabricacion: number;
   fechaCreacion: Date; // Creación de la orden de fabrición

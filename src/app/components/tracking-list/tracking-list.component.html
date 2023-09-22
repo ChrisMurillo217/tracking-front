@@ -34,6 +34,7 @@
         <td>
           <a
             [routerLink]="['/tracking', pedido.pedidoCliente]"
+            (click)="onTrackingClick(pedido.pedidoCliente)"
             class="btn btn-primary btn-sm">
             Tracking
           </a>

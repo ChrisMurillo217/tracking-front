@@ -16,6 +16,7 @@ import { AppComponent } from './app.component';
 import { AuthService } from './services/auth.service';
 import { PedidoService } from './services/pedido.service';
 import { OfService } from './services/of.service';
+import { ProgressService } from './services/progress.service';
 
 import { LoginComponent } from './components/login/login.component';
 import { PedidosComponent } from './components/pedidos/pedidos.component';
@@ -54,7 +55,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
   providers: [
     AuthService,
     PedidoService,
-    OfService
+    OfService,
+    ProgressService
   ],
   bootstrap: [AppComponent]
 })

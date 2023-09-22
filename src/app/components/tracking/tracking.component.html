@@ -31,7 +31,7 @@
     </div>
     <div class="col-1"></div>
   </div>
-
+  <label class="text-light">{{numeroItem}}</label>
   <div class="row align-items-center justify-content-center text-light margin-top-info">
     <div class="col-2"></div>
     <div class="col-4">
@@ -48,10 +48,10 @@
     <div class="col-4">
       <h4 class="text-inline">
         {{ pedidoCliente }} <br>
-        {{ formatDate( pedido.DocDate ) }} <br>
-        {{ pedido.CANCELED }} <br>
-        {{ formatDate( pedido.DocDueDate ) }} <br>
-        {{ calcularTiempoEntrega( pedido.DocDate, pedido.DocDueDate ) }}
+        {{ fechaContabilizacion }} <br>
+        {{ estadoPedido }} <br>
+        {{ fechaEntrega }} <br>
+        {{ tiempoEntrega }}
       </h4>
     </div>
   </div>

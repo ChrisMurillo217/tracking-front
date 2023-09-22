@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject  } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProgressService {
-  private progressSubject = new Subject<number>();
+  private progressSubject = new BehaviorSubject<number>(0);
   progress$ = this.progressSubject.asObservable();
 
   updateProgress( progress: number ) {

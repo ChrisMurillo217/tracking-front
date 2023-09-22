@@ -66,7 +66,7 @@ export class FabricacionComponent implements OnInit {
       this.ofService.getOf( this.selectedPedido ).subscribe(
         ( ofs: Fabricacion[] ) => {
           this.OFs = ofs.map( ( of ) => ( {
-            label: of.OF.toString(),
+            label: `${ of.OF.toString() } - ${ of.Descripcion }`,
             value: of
           } ) );
         },
