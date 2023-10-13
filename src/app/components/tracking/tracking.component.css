@@ -12,15 +12,14 @@
   margin-top: 120px;
 }
 
-.margin-1 {
-  margin-left: 95px;
+/* Estilos para pantallas grandes (escritorio) */
+.text-inline h4 {
+  font-size: 24px; /* Tamaño de fuente para h4 en pantallas grandes */
 }
-.margin-2 {
-  margin-left: 115px;
-}
-.margin-3 {
-  margin-left: 130px;
-}
-.margin-4 {
-  margin-left: 110px;
+
+/* Estilos para pantallas pequeñas (móvil) */
+@media only screen and (max-width: 767px) {
+  .text-inline h4 {
+    font-size: 20px; /* Tamaño de fuente para h4 en pantallas pequeñas */
+  }
 }

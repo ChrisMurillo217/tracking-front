@@ -1,15 +1,17 @@
 <app-navbar></app-navbar>
 
-<br><br><br><br>
 
 <div class="container">
+  <div class="col-md-12">
+    <br><br><br><br>
+  </div>
   <div class="row text-light">
     <div class="col ">
       <div class="card card-qr" style="width: 18rem;">
         <div class="card-body">
           <h2 class="card-title">Tracking</h2>
           <p class="card-text">Mira como va avanzando tu pedido</p>
-          <a routerLink="/trackingList" class="card-link text-dark">Tracking</a>
+          <a [routerLink]="['/trackingList']" class="card-link text-dark">Tracking</a>
         </div>
       </div>
     </div>

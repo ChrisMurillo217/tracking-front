@@ -8,12 +8,12 @@
       <div class="form-group">
         <p-autoComplete
           [(ngModel)]="selectedPedido"
-          [ngModelOptions]="{standalone: true}"
+          [ngModelOptions]="{ standalone: true }"
           [dropdown]="true"
           [suggestions]="filteredPedidos"
           [style]="{ width: '100%', height: '38px' }"
-          (completeMethod)="filterPedido($event)"
-          (onSelect)="onPedidoSelect($event)"
+          (completeMethod)="filterPedido( $event )"
+          (onSelect)="onPedidoSelect( $event )"
           field="label"
           placeholder="N° de pedido">
         </p-autoComplete>

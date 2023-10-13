@@ -10,6 +10,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { TableModule } from 'primeng/table';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MessageService } from 'primeng/api';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,23 +18,22 @@ import { AuthService } from './services/auth.service';
 import { PedidoService } from './services/pedido.service';
 import { OfService } from './services/of.service';
 import { ProgressService } from './services/progress.service';
+import { GuiaService } from './services/guia.service';
 
 import { LoginComponent } from './components/login/login.component';
 import { PedidosComponent } from './components/pedidos/pedidos.component';
 import { FabricacionComponent } from './components/fabricacion/fabricacion.component';
-import { DespachoComponent } from './components/despacho/despacho.component';
 import { TrackingListComponent } from './components/tracking-list/tracking-list.component';
 import { TrackingComponent } from './components/tracking/tracking.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
-@NgModule({
+@NgModule( {
   declarations: [
     AppComponent,
     LoginComponent,
     PedidosComponent,
     FabricacionComponent,
-    DespachoComponent,
     TrackingListComponent,
     TrackingComponent,
     HomeComponent,
@@ -56,8 +56,12 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     AuthService,
     PedidoService,
     OfService,
-    ProgressService
+    ProgressService,
+    GuiaService,
+    MessageService
   ],
-  bootstrap: [AppComponent]
-})
+  bootstrap: [
+    AppComponent
+  ]
+} )
 export class AppModule { }

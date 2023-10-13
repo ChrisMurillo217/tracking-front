@@ -3,11 +3,11 @@ import { OfService } from 'src/app/services/of.service';
 import { PedidoList } from '../../models/pedido.model';
 import { Fabricacion } from '../../models/ofSap.model';
 
-@Component({
+@Component( {
   selector: 'app-fabricacion',
   templateUrl: './fabricacion.component.html',
-  styleUrls: ['./fabricacion.component.css']
-})
+  styleUrls: [ './fabricacion.component.css' ]
+} )
 export class FabricacionComponent implements OnInit {
   OF:               any;
   filteredPedidos:  any[] = [];
@@ -66,12 +66,12 @@ export class FabricacionComponent implements OnInit {
       this.ofService.getOf( this.selectedPedido ).subscribe(
         ( ofs: Fabricacion[] ) => {
           this.OFs = ofs.map( ( of ) => ( {
-            label: `${ of.OF.toString() } - ${ of.Descripcion }`,
+            label: `${ of.OF } - ${ of.Descripcion }`,
             value: of
           } ) );
         },
-        (error: any) => {
-          console.error('Error al obtener las órdenes de fabricación', error);
+        ( error: any ) => {
+          console.error( 'Error al obtener las órdenes de fabricación', error );
         }
       );
     }
@@ -94,18 +94,32 @@ export class FabricacionComponent implements OnInit {
   guardarOF() {
     if ( this.fechaEntrega && this.fechaIngreso ) {
       const nuevaOF: Fabricacion = {
-        Pedido: this.OF?.value.Pedido,
-        PostDate: new Date(),
-        DueDate: new Date( this.fechaEntrega ),
-        StartDate: new Date( this.fechaIngreso ),
-        OF: this.OF?.value.OF,
-        Item: this.codigoItem,
-        Descripcion: this.item
+        Pedido:       this.OF?.value.Pedido,
+        PostDate:     new Date(),
+        DueDate:      new Date( this.fechaEntrega ),
+        StartDate:    new Date( this.fechaIngreso ),
+        OF:           this.OF?.value.OF,
+        Item:         this.codigoItem,
+        Descripcion:  this.item
       };
 
       this.ofService.createOF( nuevaOF ).subscribe(
         ( response: any ) => {
           console.log( response.message );
+
+          const indexToRemove = this.OFs.findIndex( of => of.value.OF === nuevaOF.OF )
+          if ( indexToRemove !== -1 ) {
+            this.OFs.splice( indexToRemove, 1 );
+          }
+
+          this.codigoItem = null;
+          this.item = null;
+          this.fechaIngreso = null;
+          this.fechaEntrega = null;
+
+          this.OF = null;
+
+          this.filterOF( { query: '' } );
         },
         ( error: any ) => {
           console.error( 'Error al crear la orden de fabricación', error );

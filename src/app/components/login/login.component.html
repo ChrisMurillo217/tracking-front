@@ -14,7 +14,7 @@
           <input type="password" class="form-control" placeholder="Contraseña" [(ngModel)]="password" name="password" required>
         </div><br>
         <div class="form-group d-flex justify-content-center">
-          <input routerLink="/home" type="submit" class="btnSubmit" value="Ingresar">
+          <input [routerLink]="['/home']" type="submit" class="btnSubmit" value="Ingresar">
         </div>
       </form>
     </div>

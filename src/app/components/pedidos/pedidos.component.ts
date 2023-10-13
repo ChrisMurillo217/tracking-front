@@ -3,12 +3,13 @@ import { PedidoService } from 'src/app/services/pedido.service';
 import { ProgressService } from 'src/app/services/progress.service';
 import { Pedido } from '../../models/pedidoSap.model';
 import { PedidoList } from 'src/app/models/pedido.model';
+import { GuiaService } from 'src/app/services/guia.service';
 
-@Component({
+@Component( {
   selector: 'app-pedidos',
   templateUrl: './pedidos.component.html',
   styleUrls: ['./pedidos.component.css']
-})
+} )
 export class PedidosComponent implements OnInit {
   selectedPedido:   any = {};
   filteredPedidos:  any[] = [];
@@ -24,7 +25,10 @@ export class PedidosComponent implements OnInit {
   existingPedidos:  string[] = [];
   TOTAL_PEDIDOS:    number = 0;
 
-  constructor( private pedidoService: PedidoService, private progressService: ProgressService ) { }
+  constructor(
+    private pedidoService: PedidoService,
+    private progressService: ProgressService,
+  ) { }
 
   ngOnInit() {
     this.pedidoService.getPedidosList().subscribe( ( existingPedidos: PedidoList[] ) => {
@@ -40,13 +44,13 @@ export class PedidosComponent implements OnInit {
 
   loadPedidosFromSap() {
     this.pedidoService.getPedidos().subscribe( ( pedidos: Pedido[] ) => {
-      const uniquePedidos: Set<string> = new Set();
+      const uniquePedidos: Set< string > = new Set();
 
       pedidos.forEach( ( pedido: Pedido ) => {
         const pedidoLabel = pedido.DocNum.toString();
 
-        if ( !uniquePedidos.has(pedidoLabel) && !this.existingPedidos.some( ( existingPedidos ) => existingPedidos === pedidoLabel ) ) {
-          uniquePedidos.add(pedidoLabel);
+        if ( !uniquePedidos.has( pedidoLabel ) && !this.existingPedidos.some( ( existingPedidos ) => existingPedidos === pedidoLabel ) ) {
+          uniquePedidos.add( pedidoLabel );
 
           this.filteredPedidos.push( {
             label: pedidoLabel,
@@ -126,8 +130,7 @@ export class PedidosComponent implements OnInit {
           console.log( response.message );
           this.progressService.updateProgress( 33 );
 
-
-          const index = this.filteredPedidos.findIndex( pedido => pedido.value.DocNum === nuevoPedido.DocNum);
+          const index = this.filteredPedidos.findIndex( pedido => pedido.value.DocNum === nuevoPedido.DocNum );
           if ( index !== -1 ) {
             this.filteredPedidos.splice( index, 1 );
           }
@@ -136,6 +139,8 @@ export class PedidosComponent implements OnInit {
           console.error( 'Error al crear el pedido', error );
         }
       );
+
+
     } else {
       console.error( 'Las fechas son nulas o no válidas' );
     }

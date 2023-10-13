@@ -3,14 +3,14 @@ import { PedidoService } from '../../services/pedido.service';
 import { PedidoList } from '../../models/pedido.model';
 import { ProgressService } from '../../services/progress.service';
 
-@Component({
+@Component( {
   selector: 'app-tracking-list',
   templateUrl: './tracking-list.component.html',
-  styleUrls: ['./tracking-list.component.css']
-})
+  styleUrls: [ './tracking-list.component.css' ]
+} )
 export class TrackingListComponent implements OnInit {
-  pedidos:    PedidoList[] = [];
-  first       = 0;
+  pedidos:      PedidoList[] = [];
+  first         = 0;
 
   constructor( private pedidoService: PedidoService, private progressService: ProgressService ) {}
 

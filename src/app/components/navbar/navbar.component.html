@@ -1,7 +1,34 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-nav-qr">
-  <div class="container">
-    <a class="navbar-brand text-light" routerLink="/home">Inicio</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/home">
+      <img src="../../../assets/Logos.png" height="65" class="d-inline-block align-top" alt="">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <button routerLink="/login" class="btn btn-outline-light my-2 my-sm-0">Cerrar Sesión</button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mx-auto text-center">
+        <li class="nav-item active text-center">
+          <a class="nav-link" [routerLink]="['/home']">
+            Inicio
+          </a>
+        </li>
+        <li class="nav-item active ml-auto">
+          <a class="nav-link" [routerLink]="['/pedidos']">
+            Pedidos
+          </a>
+        </li>
+        <li class="nav-item active ml-auto">
+          <a class="nav-link" [routerLink]="['/fabricacion']">
+            Orden de Fabricación
+          </a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <button [routerLink]="['/login']" class="btn btn-outline-light my-2 my-sm-0">Cerrar Sesión</button>
+      </form>
+    </div>
   </div>
 </nav>
+
